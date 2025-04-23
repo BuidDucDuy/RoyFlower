@@ -34,12 +34,10 @@
                                 <a href="{% url 'base' %}"class="btn-login">{{request.user.username}}</a>
                                 <ul class="header-logout">
                                     <li class="header-logout-item">
-                                        
-
                                         <a href = "{% url "logout" %}" class="btn-logout">Đăng Xuất</a>
                                     </li>
                                     <li class="header-logout-item">
-                                        <a href={% url "cart" %} class="btn-logout">Giỏ hàng</a>
+                                        <a href="#" class="btn-logout">Giỏ hàng</a>
                                     </li>
                                 </ul>
                             {% else %}  
@@ -49,7 +47,7 @@
                                     <a href = "{% url "login" %}" class="btn-logout">Đăng Nhập</a>
                                 </li>
                                 <li class="header-logout-item">
-                                    <a href={% url "cart" %} class="btn-logout">Giỏ hàng</a>
+                                    <a href="#" class="btn-logout">Giỏ hàng</a>
                                 </li>
                             </ul>
                             {% endif %}
@@ -311,7 +309,7 @@
                                 <div class="col-custom production-item">
                                     <img src="{{ production.image.url }}"  class="production-img">
                                     <div class="production-title">
-                                        <a href="{% url "detail" %}">{{ production.name }}</a>
+                                        <a href="">{{ production.name }}</a>
                                     </div>
                                     <div class="production-price">
                                         Giá :{{ production.price }} VNĐ

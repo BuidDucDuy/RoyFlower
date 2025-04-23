@@ -22,3 +22,10 @@ a {
     flex: 0 0 20%;
     max-width: 19%;
 }
+.btn-search{
+    background-color: var(--primary-color-white);
+    list-style: none;
+    padding: 5px;
+    border-radius: 16px;
+    border: none;
+}

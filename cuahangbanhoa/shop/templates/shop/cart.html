@@ -1,0 +1,32 @@
+{% extends "shop/base.html" %}
+
+{% block container %}
+<div class="product-detail container py-5">
+    <div class="row">
+        <!-- Hình ảnh sản phẩm -->
+        <div class="col-md-6">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
+        </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="col-md-6">
+            <h2 class="mb-3">{{ product.name }}</h2>
+            <p class="text-muted">Mã sản phẩm: {{ product.product_code }}</p>
+            <h4 class="text-danger mb-3">{{ product.price|floatformat:0 }}₫</h4>
+            <p>{{ product.description|linebreaks }}</p>
+
+            <!-- Form thêm vào giỏ hàng -->
+            <form method="POST" action="{% url 'cart' product.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="quantity">Số lượng:</label>
+                    <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control w-25">
+                </div>
+                <button type="submit" class="btn btn-success mt-3">
+                    <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

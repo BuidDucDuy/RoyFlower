@@ -1,0 +1,44 @@
+    {% extends "shop/base.html" %}
+
+    {% block header %}
+        {{ block.super }}  
+    {% endblock header %}
+
+    {% block container %}
+    <form method = "POST" action = "">
+        {% csrf_token %} 
+        <div class="grid">
+            <div class="row">
+                <div class="padding">
+                    <div class="reg">
+                        <div class="reg-header">
+                            <h1 class="reg-header-title">
+                                <h4>ĐĂNG KÝ</h4>
+                            </h1>
+                        </div>
+                        <div class="reg-container">
+                            <span class="reg-title">Email</span>
+                            <input type="email" name = "email" placeholder="Nhập email" class="reg-container-input">
+                        </div>   
+                        <div class="reg-container">
+                            <span class="reg-title">Mật khẩu</span>
+                            <input type="password" name = "password1" placeholder="Nhập mật Khẩu" class="reg-container-input">
+                        </div>   
+                        <div class="reg-container">
+                            <span class="reg-title reg-title-email">Nhập lại mật khẩu</span>
+                            <input type="password" name = "password2" placeholder="Nhập lại mật khẩu" class="reg-container-input">
+                        </div>   
+                        <div class="reg-container">
+                            <span class="reg-title">Tên hiển thị</span>
+                            <input type="text" name="username" placeholder="Nhập tên hiển thị" class="reg-container-input">
+                        </div>  
+                        <div class="reg-footer">
+                            <button type = "submit" class="btn-reg-form">Đồng ý</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% endblock container %}
+

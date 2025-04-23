@@ -1,0 +1,41 @@
+{% extends "shop/base.html" %}
+
+{% block header %}
+    {{ block.super }}  
+{% endblock header %}
+
+{% block container %}   
+    <form method = "POST">
+        {%csrf_token%}
+    <div class="grid">
+        <div class="row">
+            <div class="padding">
+                <div class="login">
+                    <div class="login-header">
+                        <h1 class="login-header-title">
+                            <h4>ĐĂNG NHẬP</h4>
+                        </h1>
+                    </div>
+                    <div class="login-container">
+                        <span class="login-title login-title-email">Tên đăng nhập</span>
+                        <input name = "username" type="text" placeholder="Nhập email" class="login-container-input">
+                    </div>   
+                    <div class="login-container">
+                        <span class="login-title">Mật khẩu</span>
+                        <input name = "password" type="password" placeholder="Nhập mật Khẩu" class="login-container-input">
+                    </div>   
+                    <div class="login-footer">
+                        <button type="submit" class="btn-login-form">Đồng ý</button>
+                        <input type="checkbox" class="login-checkbox">Nhớ mật khẩu
+                        <a href="{% url 'reg' %}" class="btn-login-link">
+                            <i class="fa-solid fa-person"></i>
+                            <span>Đăng ký</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+{% endblock container %}
+
