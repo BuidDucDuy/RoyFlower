@@ -10,7 +10,9 @@
     font-weight: bold;
     margin-bottom: 20px;
 }
-
+.detail_waring{
+    list-style:  none;
+}
 
 .search-list {
     display: flex;
@@ -32,18 +34,20 @@
 }
 
 .search-item:hover {
-    transform: translateY(-5px); /* Hiệu ứng nổi lên */
+    transform: translateY(-5px); 
 }
 
-/* Ảnh sản phẩm */
+.detail_mota_code{
+    font-weight: 700;
+}
 .production-img {
     width: 100%;
-    height: 220px; /* Đặt chiều cao cố định */
-    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    height: 220px;
+    object-fit: cover;
     border-radius: 8px;
 }
 
-/* Tên sản phẩm */
+
 .search-title a {
     display: block;
     font-size: 16px;

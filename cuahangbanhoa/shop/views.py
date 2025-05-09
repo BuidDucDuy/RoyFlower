@@ -1,9 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from django.http import HttpResponse
 from .models import *
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.hashers import make_password
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 
@@ -53,7 +55,7 @@ def reg(request):
             user = User(username=username , email = email, )
             user.set_password(password1)
             user.save()
-            messages.success(request,"ĐĂNG KÝ THÀNH CÔNG")
+            messages.success(request,"ĐĂNG KÝ THÀNH CÔNG")  
             return redirect('login')
     context = {'user':user}
     return render(request, "shop/reg.html", context)
@@ -64,11 +66,38 @@ def logout_view(request):
     return render(request, 'shop/logout.html')
 def search_view(request):
     if request.method == "POST":
-        search_query = request.POST["search"]
-        keys = Product.objects.filter(name__contains = search_query)
-    return render(request, "shop/search.html",{'search_query' : search_query,'keys':keys})
+        search_query = request.POST.get("search", "")
+        keys = Product.objects.filter(name__icontains=search_query)
+        return render(request, "shop/search.html", {
+            'search_query': search_query,
+            'keys': keys
+        })
+    return redirect('home')
+    return render(request, "shop/search.html",{'search_query' : search_query,'keys':keys ,'product': product })
 def cart_view(request):
-    return render(request,"shop/cart.html")
-def detail_view(request):
-    products = Product.objects.all()
-    return render(request,"shop/detail.html",{'Product': products})
+    if request.user.is_authenticated:
+        cart , created = Cart.objects.get_or_create(user = request.user)
+        cart_items = Cart_item.objects.filter(cart = cart)
+        return render(request,"shop/cart.html",{"cart_items":cart_items})
+    else:
+        return redirect('login')
+def add_to_cart(request , product_id):
+    if request.user.is_authenticated:
+        cart,created = Cart.objects.get_or_create(user=request.user)
+        product = Product.objects.get(id=product_id)
+        cart_item,created = Cart_item.objects.get_or_create(cart=cart , product = product)
+        if not created:
+            cart_item.quantity += 1
+            cart_item.save()
+            return redirect('cart')
+        else:
+            return redirect('cart')        
+def detail_view(request,product_id):
+    product = get_object_or_404(Product,id = product_id)
+    return render(request,"shop/detail.html",{'product': product})          
+
+@login_required
+def delete_cart_item(request , product_id):
+    cart_item= Cart_item.objects.get(id = product_id)
+    cart_item.delete()
+    return redirect('cart')

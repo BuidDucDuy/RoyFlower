@@ -5,47 +5,63 @@
 {% endblock header %}
 
 {% block container %}
-<form method="POST" action="">
-    {% csrf_token %} 
-    <div class="grid">
+<form method="POST" action="{% url 'add_to_cart' product.id %}" class="max-w-6xl mx-auto p-4 md:p-8">
+    {% csrf_token %}
+    <div class="grid grid-cols-1">
         <div class="row">
             <div class="padding">
-                <div class="detail grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-2xl shadow">
-                    <div class="space-y-4">
-                        <h1 class="text-3xl font-bold text-purple-700">
-                           {{Product.name}}
-                        </h1>
-                        <div class="bg-gray-100 rounded-xl overflow-hidden">
-                            <img src="https://royflower.com/uploads/product/LHD118-lan-ho-diep-tim-nhat-6-canh.jpg" 
-                                 class="w-full h-full object-cover" />
-                        </div>
-                        <p class="text-gray-700 text-lg">
-                            Chậu lan hồ điệp tím nhạt 6 cành mang vẻ đẹp tinh tế, ngọt ngào và hiện đại.
-                            Rất phù hợp để làm quà tặng sinh nhật, khai trương hay trang trí không gian sống.
-                        </p>
-                        <div class="text-2xl font-semibold text-red-500">
-                            1.890.000 VND
-                        </div>
-
-                        <ul class="text-gray-800">
-                            <li><strong>Mã sản phẩm:</strong> LHD118</li>
-                            <li><strong>Số cành:</strong> 6 cành</li>
-                            <li><strong>Ý nghĩa:</strong> Yêu kiều, ngọt ngào, may mắn</li>
-                            <li><strong>Phù hợp cho:</strong> Sinh nhật, khai trương, trang trí</li>
-                        </ul>
-
-                        <div class="flex gap-4 pt-4">
-                            <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl">
-                                Đặt mua ngay
-                            </button>
-                            <span class="px-3 py-1 border border-purple-300 text-purple-700 rounded-xl text-sm">
-                                Giao tận nơi toàn quốc
-                            </span>
-                        </div>
+                <div class="detail">
+                   <h1 class="detail-header">
+                    {{product.name}}
+                   </h1>
+                    <div class="detail_content">
+                    <div class="detail_img">
+                        <img src="{{product.image.url}}" alt="">
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <div class="deatil_description">
+                        <div class="detail_code">Mã sản phẩm : {{product.product_code}}</div>
+                        <div class="detail_rate">
+                        <p>Đánh giá</p>
+                        <select name="" id="vote_result">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected="selected">5</option>
+                        </select>
+                        </div>
+                        <div class="detail_price">
+
+                        </div>
+                        
+                            
+                        <button type = "submit" class="btn-detail-submit">
+                            ĐẶT MẪU HOA NÀY
+                        </button>
+
+                        <ul class="detail_waring">
+                            <li class="detail-waring_list">► Giao hoa nhanh hoả tốc nội thành miễn phí</li>
+                            <li class="detail-waring_list">► Hoạt động 24/7 tư vấn đặt mua hoa nhanh chóng</li>
+                            <li class="detail-waring_list">► Xuất hoá đơn VAT cho doanh nghiệp (8%)</li>
+                            <li class="detail-waring_list">► Thiết kế hoa theo yêu cầu, theo ý tưởng khách hàng</li>
+                            <li class="detail-waring_list">► Miễn phí thiệp banner, ruy băng, thiệp…</li>
+                            <li class="detail-waring_list">► Trường hợp không đủ số lượng hoa như mẫu đã chọn, shop sẽ chủ động liên hệ với bạn để lựa chọn mẫu hoa thay thế phù hợp.</li>
+                            <li class="detail-waring_list">K/H Để lại SDT, shop gọi lại ngay
+                                <input class="" type="text" placeholder="Số Điện Thoại">
+                                
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                    <div class="detail_mota">
+                        <span class="detail_mota_code">"{{product.product_code}}"</span> 
+                        <span class="detail_mota_description">"{{product.description}}"</span> 
+
+                        
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </div> 
 </form>
 {% endblock container %}

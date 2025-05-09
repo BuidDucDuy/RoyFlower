@@ -2,31 +2,35 @@
 
 {% block container %}
 <div class="product-detail container py-5">
-    <div class="row">
-        <!-- Hình ảnh sản phẩm -->
-        <div class="col-md-6">
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded shadow">
-        </div>
+    {% for item in cart_items %}
+    {% if product.id and item.product.id %}{% endif %}
+    <form method="POST" action="{% url 'delete_product' item.id %}">
+        {% csrf_token %}
+        <div class="row product-item mb-5 p-4 shadow rounded bg-white">
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid rounded shadow">
+            </div>
 
-        <!-- Thông tin sản phẩm -->
-        <div class="col-md-6">
-            <h2 class="mb-3">{{ product.name }}</h2>
-            <p class="text-muted">Mã sản phẩm: {{ product.product_code }}</p>
-            <h4 class="text-danger mb-3">{{ product.price|floatformat:0 }}₫</h4>
-            <p>{{ product.description|linebreaks }}</p>
+            <div class="col-md-6">
+                <h2 class="mb-3">{{ item.product.name }}</h2>
+                <p class="text-muted">Mã sản phẩm: {{ item.product.product_code }}</p>
+                <h4 class="text-danger mb-3">{{ item.product.price|floatformat:0 }}₫</h4>
+                <p>{{ item.product.description|linebreaks }}</p>
 
-            <!-- Form thêm vào giỏ hàng -->
-            <form method="POST" action="{% url 'cart' product.id %}">
-                {% csrf_token %}
                 <div class="form-group">
-                    <label for="quantity">Số lượng:</label>
-                    <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control w-25">
+                    <label for="quantity_{{ forloop.counter }}">Số lượng:</label>
+                    <input type="number" name="quantity" id="quantity_{{ forloop.counter }}" value="1" min="1" class="form-control w-25">
                 </div>
-                <button type="submit" class="btn btn-success mt-3">
-                    <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng
-                </button>
-            </form>
+                <div class="cart-footer">
+                    <h3 class="total-price-item">Thành tiền {{ item.product.product_code }}</h3>
+                    <button type="submit"  class="btn btn-danger mt-3">
+                        <i class="fa fa-trash"></i> Xoá sản phẩm
+                    </button>
+                </div>
+                
+            </div>
         </div>
-    </div>
+    </form>
+    {% endfor %}
 </div>
 {% endblock %}

@@ -5,7 +5,7 @@
     {% endblock header %}
     
     {% block container %}   
-    <form method = "POST">
+    <form method = "POST" action>
             {%csrf_token%}
         <div class="grid">
             <div class="row">
@@ -18,7 +18,7 @@
                             <div class="col-custom search-item">
                                 <img src="{{ production.image.url }}"  class="production-img">
                                 <div class="search-title">
-                                    <a href="#">{{ production.name }}</a>
+                                    <a href="{% url "detail" production.id %}">{{ production.name }}</a>
                                 </div>
                                 <div class="search-price">
                                     Giá :{{ production.price }} VNĐ
